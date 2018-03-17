@@ -14,6 +14,6 @@ export class HeaderLayout {
   }
   
   routerConfigChanged(newValue, oldValue) {
-    this.activeRoute = newValue.name;
+    this.activeRoute = newValue && newValue.name;
   }
 }
