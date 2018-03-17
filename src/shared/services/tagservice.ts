@@ -3,6 +3,7 @@ import {ApiService} from './apiservice';
 
 @inject(ApiService)
 export class TagService {
+  apiService;
 
   constructor(apiService) {
     this.apiService = apiService;

@@ -8,6 +8,10 @@ export class ProfileArticleComponent {
   totalPages;
   currentPage = 1;
   limit = 10;
+
+  articleService;
+
+  username;
   
   constructor(as) {
     this.articleService = as;

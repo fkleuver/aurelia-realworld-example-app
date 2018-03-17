@@ -14,6 +14,13 @@ export class HomeComponent {
   totalPages;
   currentPage = 1;
   limit = 10;
+
+  sharedState;
+  bindingEngine;
+  articleService;
+  tagService;
+
+  subscription;
   
   constructor(sharedState, bindingEngine, articleService, tagService) {
     this.sharedState = sharedState;
@@ -39,7 +46,7 @@ export class HomeComponent {
   }
   
   getArticles() {
-    let params = {
+    let params: any = {
       limit: this.limit,
       offset: this.limit * (this.currentPage - 1)
     };

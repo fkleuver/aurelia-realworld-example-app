@@ -7,6 +7,8 @@ export class CommentCustomElement {
   @bindable comment;
   @bindable deleteCb;
 
+  sharedState;
+
   constructor(shSt) {
     this.sharedState = shSt;
   }

@@ -5,6 +5,9 @@ import {SharedState} from '../../shared/state/sharedstate';
 
 @inject(UserService, SharedState, Router)
 export class SettingsComponent {
+  userService;
+  sharedState;
+  router;
   
   constructor(userService, sharedState, router) {
     this.userService = userService;

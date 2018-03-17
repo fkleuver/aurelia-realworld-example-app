@@ -6,6 +6,9 @@ import {SharedState} from '../state/sharedstate';
 
 @inject(ApiService, JwtService, SharedState)
 export class UserService {
+  apiService;
+  jwtService;
+  sharedState;
   
   constructor(apiService, jwtService, sharedState) {
     this.apiService = apiService;

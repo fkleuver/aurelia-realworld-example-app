@@ -11,6 +11,12 @@ export class AuthComponent {
   email = '';
   password = '';
   errors = null;
+
+  userService;
+  sharedState;
+  router;
+  controller;
+  
   
   constructor(userService, sharedState, router, controllerFactory) {
     this.userService = userService;
@@ -21,7 +27,7 @@ export class AuthComponent {
     ValidationRules
       .ensure('email').required().email()
       .ensure('password').required().minLength(8)
-      .ensure('username').required().when((auth) => auth.type === 'register')
+      .ensure('username').required().when((auth: any) => auth.type === 'register')
       .on(this);
   }
   

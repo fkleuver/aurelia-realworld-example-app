@@ -5,7 +5,13 @@ import {ArticleService} from "../../shared/services/articleservice";
 @inject(ArticleService, Router)
 export class EditorComponent {
   article;
-  @observable() tag;
+  @observable()  tag;
+
+  articleService;
+  router;
+
+  routeConfig;
+  slug;
   
   constructor(as, r) {
     this.articleService = as;
@@ -47,7 +53,7 @@ export class EditorComponent {
   
   publishArticle() {
     this.articleService.save(this.article)
-      .then((article) => {
+      .then(article => {
         this.slug = article.slug;
         this.router.navigateToRoute('article', {slug: this.slug})
       })

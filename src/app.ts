@@ -3,6 +3,10 @@ import {UserService} from './shared/services/userservice';
 
 @inject(UserService)
 export class App {
+  message;
+  userService;
+  
+  router;
   
   constructor(userService) {
     this.message = 'Hello World!'; // just for unit testing ;)

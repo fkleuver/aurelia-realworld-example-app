@@ -12,6 +12,17 @@ export class ArticleComponent {
   comments;
   myComment;
   
+  articleService;
+  commentService;
+  userService;
+  sharedState;
+  profileService;
+  router;
+
+  routeConfig;
+  slug;
+
+
   constructor(as, cs, us, shst, ps, r) {
     this.articleService = as;
     this.commentService = cs;

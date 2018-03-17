@@ -7,6 +7,8 @@ export class HeaderLayout {
   activeRoute = '';
   @bindable({defaultBindingMode: bindingMode.twoWay}) routerConfig;
   
+  sharedState;
+
   constructor(sharedState) {
     this.sharedState = sharedState;
   }

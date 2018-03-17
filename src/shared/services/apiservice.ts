@@ -7,6 +7,8 @@ import {status, parseError} from './servicehelper';
 
 @inject(HttpClient, JwtService)
 export class ApiService {
+  http;
+  jwtService;
   
   constructor(http, jwtService) {
     this.http = http;

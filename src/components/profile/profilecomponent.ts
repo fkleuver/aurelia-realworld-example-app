@@ -6,6 +6,12 @@ import {ProfileService} from "../../shared/services/profileservice";
 
 @inject(SharedState, ProfileService)
 export class ProfileComponent {
+  sharedState;
+  profileService;
+
+  router;
+  username;
+  profile;
   
   constructor(sharedState, ps) {
     this.sharedState = sharedState;
