@@ -1,7 +1,8 @@
 # ![RealWorld Example App](logo.png)
 
-> ### Aurelia codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
+## This specific fork is a rewrite of the original (see details below) in TypeScript & webpack.
 
+> ### Aurelia codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
 ### [Demo](https://gothinkster.github.io/aurelia-realworld-example-app)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
@@ -13,16 +14,12 @@ We've gone to great lengths to adhere to the **[Aurelia](http://aurelia.io)** co
 For more information on how to this works with other frontends/backends, head over to the [RealWorld](https://github.com/gothinkster/realworld) repo.
 
 
-# How it works
-
-Created with aurelia-cli
-
 # Getting started
 
 Make sure you have [Node](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) installed. Then run 
 ```
 yarn install
-au run --watch
+npm run dev
 ```
 and Navigate to `http://localhost:9000/`. 
 
