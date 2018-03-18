@@ -1,15 +1,13 @@
 export class JwtService {
-  
   getToken() {
-    return window.localStorage['jwtToken'];
+    return window.localStorage["jwtToken"];
   }
-  
-  saveToken(token) {
-    window.localStorage['jwtToken'] = token;
+
+  saveToken(token: any) {
+    window.localStorage["jwtToken"] = token;
   }
-  
+
   destroyToken() {
-    window.localStorage.removeItem('jwtToken');
+    window.localStorage.removeItem("jwtToken");
   }
-  
 }

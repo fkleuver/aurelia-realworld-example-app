@@ -1,10 +1,10 @@
-import {bindable} from 'aurelia-framework';
+import { bindable } from "aurelia-framework";
 
 export class ArticleList {
-  @bindable articles;
-  @bindable pageNumber;
-  @bindable totalPages;
-  @bindable currentPage;
-  @bindable setPageCb;
-}
+  @bindable() articles: any[] | undefined;
 
+  @bindable() pageNumber: number | undefined;
+  @bindable() totalPages: number | undefined;
+  @bindable() currentPage: number | undefined;
+  @bindable() setPageCb: Function | undefined;
+}

@@ -1,9 +1,9 @@
 export class User {
-  email;
-  token;
-  username;
-  bio;
-  image;
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string;
   
   constructor() {
     this.email = '';

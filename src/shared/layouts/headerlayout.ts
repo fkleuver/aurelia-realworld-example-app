@@ -1,19 +1,22 @@
-import {inject} from 'aurelia-dependency-injection';
-import {bindable, bindingMode} from 'aurelia-framework';
-import {SharedState} from '../state/sharedstate';
+import { autoinject } from "aurelia-dependency-injection";
+import { bindable, bindingMode } from "aurelia-framework";
+import { SharedState } from "../state/sharedstate";
+import { RouteConfig } from "aurelia-router";
 
-@inject(SharedState)
+@autoinject()
 export class HeaderLayout {
-  activeRoute = '';
-  @bindable({defaultBindingMode: bindingMode.twoWay}) routerConfig;
-  
-  sharedState;
+  activeRoute = "";
 
-  constructor(sharedState) {
+  @bindable({ defaultBindingMode: bindingMode.twoWay })
+  routerConfig: RouteConfig | undefined;
+
+  sharedState: SharedState;
+
+  constructor(sharedState: SharedState) {
     this.sharedState = sharedState;
   }
-  
-  routerConfigChanged(newValue, oldValue) {
-    this.activeRoute = newValue && newValue.name;
+
+  routerConfigChanged(newValue: RouteConfig | undefined, _oldValue: RouteConfig | undefined) {
+    this.activeRoute = newValue && newValue.name ? newValue.name : "";
   }
 }

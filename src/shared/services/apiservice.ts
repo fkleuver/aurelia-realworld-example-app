@@ -1,71 +1,75 @@
-import {config} from './config';
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {inject} from 'aurelia-dependency-injection';
-import * as qs from 'querystringify';
-import {JwtService} from './jwtservice';
-import {status, parseError} from './servicehelper';
+import { config } from "./config";
+import { HttpClient, json } from "aurelia-fetch-client";
+import { autoinject } from "aurelia-dependency-injection";
+import * as qs from "querystringify";
+import { JwtService } from "./jwtservice";
+import { status, parseError } from "./servicehelper";
 
-@inject(HttpClient, JwtService)
+@autoinject()
 export class ApiService {
-  http;
-  jwtService;
-  
-  constructor(http, jwtService) {
+  http: HttpClient;
+  jwtService: JwtService;
+
+  constructor(http: HttpClient, jwtService: JwtService) {
     this.http = http;
     this.jwtService = jwtService;
   }
-  
+
   setHeaders() {
-    const headersConfig = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+    const headersConfig: any = {
+      "Content-Type": "application/json",
+      Accept: "application/json"
     };
-  
+
     if (this.jwtService.getToken()) {
-      headersConfig['Authorization'] = `Token ${this.jwtService.getToken()}`;
+      headersConfig["Authorization"] = `Token ${this.jwtService.getToken()}`;
     }
     return new Headers(headersConfig);
   }
-  
-  get(path, params) {
+
+  get(path: string, params?: any) {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: this.setHeaders()
     };
-    return this.http.fetch(`${config.api_url}${path}?${qs.stringify(params)}`,options)
+    return this.http
+      .fetch(`${config.api_url}${path}?${qs.stringify(params)}`, options)
       .then(status)
-      .catch(parseError)
+      .catch(parseError);
   }
-  
-  put(path, body = {}) {
+
+  put(path: string, body = {}) {
     const options = {
-      method: 'PUT',
+      method: "PUT",
       headers: this.setHeaders(),
       body: json(body)
     };
-    return this.http.fetch(`${config.api_url}${path}`,options)
+    return this.http
+      .fetch(`${config.api_url}${path}`, options)
       .then(status)
-      .catch(parseError)
+      .catch(parseError);
   }
-  
-  post(path, body = {}) {
+
+  post(path: string, body = {}) {
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: this.setHeaders(),
       body: json(body)
     };
-    return this.http.fetch(`${config.api_url}${path}`,options)
+    return this.http
+      .fetch(`${config.api_url}${path}`, options)
       .then(status)
-      .catch(parseError)
+      .catch(parseError);
   }
-  
-  delete(path) {
+
+  delete(path: string) {
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this.setHeaders()
     };
-    return this.http.fetch(`${config.api_url}${path}`,options)
+    return this.http
+      .fetch(`${config.api_url}${path}`, options)
       .then(status)
-      .catch(parseError)
+      .catch(parseError);
   }
 }

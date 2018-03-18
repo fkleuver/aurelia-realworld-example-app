@@ -1,24 +1,23 @@
-import {inject} from 'aurelia-dependency-injection';
-import {ApiService} from './apiservice';
+import { autoinject } from "aurelia-dependency-injection";
+import { ApiService } from "./apiservice";
 
-@inject(ApiService)
+@autoinject()
 export class ProfileService {
-  apiService;
+  apiService: ApiService;
 
-  constructor(apiService) {
+  constructor(apiService: ApiService) {
     this.apiService = apiService;
   }
-  
-  get(username) {
-    return this.apiService.get('/profiles/' + username)
-      .then(data => data.profile)
+
+  get(username: string) {
+    return this.apiService.get("/profiles/" + username).then(data => data.profile);
   }
-  
-  follow(username) {
-    return this.apiService.post('/profiles/' + username + '/follow')
+
+  follow(username: string) {
+    return this.apiService.post("/profiles/" + username + "/follow");
   }
-  
-  unfollow(username) {
-    return this.apiService.delete('/profiles/' + username + '/follow')
+
+  unfollow(username: string) {
+    return this.apiService.delete("/profiles/" + username + "/follow");
   }
 }

@@ -1,25 +1,25 @@
-import {inject} from 'aurelia-dependency-injection';
-import {ApiService} from './apiservice';
+import { autoinject } from "aurelia-dependency-injection";
+import { ApiService } from "./apiservice";
 
-@inject(ApiService)
+@autoinject()
 export class CommentService {
-  apiService;
-  
-  constructor(apiService) {
+  apiService: ApiService;
+
+  constructor(apiService: ApiService) {
     this.apiService = apiService;
   }
-  
-  add(slug, payload) {
-    return this.apiService.post(`/articles/${slug}/comments`, {comment: {body: payload}})
-      .then(data => data.comment)
+
+  add(slug: string, payload: any) {
+    return this.apiService
+      .post(`/articles/${slug}/comments`, { comment: { body: payload } })
+      .then(data => data.comment);
   }
-  
-  getList(slug) {
-    return this.apiService.get(`/articles/${slug}/comments`)
-      .then(data => data.comments)
+
+  getList(slug: string) {
+    return this.apiService.get(`/articles/${slug}/comments`).then(data => data.comments);
   }
-  
-  destroy(commentId, articleSlug) {
-    return this.apiService.delete(`/articles/${articleSlug}/comments/${commentId}`)
+
+  destroy(commentId: string, articleSlug: string) {
+    return this.apiService.delete(`/articles/${articleSlug}/comments/${commentId}`);
   }
 }

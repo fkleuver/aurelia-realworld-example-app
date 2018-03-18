@@ -1,61 +1,61 @@
-import {inject, observable} from 'aurelia-framework';
-import {Router} from 'aurelia-router'
-import {ArticleService} from "../../shared/services/articleservice";
+import { Router, RouteConfig } from "aurelia-router";
+import { ArticleService } from "../../shared/services/articleservice";
+import { autoinject } from "aurelia-dependency-injection";
+import { observable } from "aurelia-binding";
 
-@inject(ArticleService, Router)
+@autoinject()
 export class EditorComponent {
-  article;
-  @observable()  tag;
+  article: any;
+  @observable() tag: string | undefined;
 
-  articleService;
-  router;
+  articleService: ArticleService;
+  router: Router;
 
-  routeConfig;
-  slug;
-  
-  constructor(as, r) {
+  routeConfig: RouteConfig | undefined;
+  slug: string | undefined;
+
+  constructor(as: ArticleService, r: Router) {
     this.articleService = as;
     this.router = r;
   }
 
-  activate(params, routeConfig) {
+  activate(params: any, routeConfig: RouteConfig) {
     this.routeConfig = routeConfig;
     this.slug = params.slug;
 
     if (this.slug) {
-      return this.articleService.get(this.slug)
-        .then(article => {
-          this.article = article;
-        });
+      return this.articleService.get(this.slug).then(article => {
+        this.article = article;
+      });
     } else {
-      this .article = {
-        title: '',
-        description: '',
-        body: '',
+      this.article = {
+        title: "",
+        description: "",
+        body: "",
         tagList: []
       };
     }
     return null;
-}
-  
-  tagChanged(newValue, oldValue) {
-    if (newValue !== undefined && newValue !== '')
-      this.addTag(this.tag);
   }
-  
-  addTag(tag) {
+
+  tagChanged(newValue: string | undefined, _oldValue: string | undefined) {
+    if (newValue !== undefined && newValue !== "") {
+      this.addTag(newValue);
+    }
+  }
+
+  addTag(tag: string) {
     this.article.tagList.push(tag);
   }
-  
-  removeTag(tag) {
+
+  removeTag(tag: string) {
     this.article.tagList.splice(this.article.tagList.indexOf(tag), 1);
   }
-  
+
   publishArticle() {
-    this.articleService.save(this.article)
-      .then(article => {
-        this.slug = article.slug;
-        this.router.navigateToRoute('article', {slug: this.slug})
-      })
+    this.articleService.save(this.article).then(article => {
+      this.slug = article.slug;
+      this.router.navigateToRoute("article", { slug: this.slug });
+    });
   }
 }

@@ -7,11 +7,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    "target": "es5",
-    "paths": {
-      "*": ["*"],
-      "src/*": ["src/*"]
-    }
+    "target": "es5"
   },
   "include": ["./src"]
 }
