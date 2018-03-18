@@ -1,45 +1,45 @@
-import { Router, RouteConfig } from "aurelia-router";
+import { computedFrom } from "aurelia-binding";
+import { autoinject } from "aurelia-dependency-injection";
+import { RouteConfig, Router } from "aurelia-router";
 import { ArticleService } from "../../shared/services/articleservice";
 import { CommentService } from "../../shared/services/commentservice";
+import { ProfileService } from "../../shared/services/profileservice";
 import { UserService } from "../../shared/services/userservice";
 import { SharedState } from "../../shared/state/sharedstate";
-import { ProfileService } from "../../shared/services/profileservice";
-import { autoinject } from "aurelia-dependency-injection";
-import { computedFrom } from "aurelia-binding";
 
 @autoinject()
 export class ArticleComponent {
-  article: any;
-  comments: any[]  = [];
-  myComment: any;
+  public article: any;
+  public comments: any[] = [];
+  public myComment: any;
 
-  articleService: ArticleService;
-  commentService: CommentService;
-  userService: UserService;
-  sharedState: SharedState;
-  profileService: ProfileService;
-  router: Router;
+  public articleService: ArticleService;
+  public commentService: CommentService;
+  public userService: UserService;
+  public sharedState: SharedState;
+  public profileService: ProfileService;
+  public router: Router;
 
-  routeConfig: RouteConfig | undefined;
-  slug: string = "";
+  public routeConfig: RouteConfig | undefined;
+  public slug: string = "";
 
   constructor(
-    as: ArticleService,
-    cs: CommentService,
-    us: UserService,
-    shst: SharedState,
-    ps: ProfileService,
-    r: Router
+    articleService: ArticleService,
+    commentService: CommentService,
+    userService: UserService,
+    sharedState: SharedState,
+    profileService: ProfileService,
+    router: Router
   ) {
-    this.articleService = as;
-    this.commentService = cs;
-    this.userService = us;
-    this.sharedState = shst;
-    this.profileService = ps;
-    this.router = r;
+    this.articleService = articleService;
+    this.commentService = commentService;
+    this.userService = userService;
+    this.sharedState = sharedState;
+    this.profileService = profileService;
+    this.router = router;
   }
 
-  activate(params: any, routeConfig: RouteConfig) {
+  public activate(params: any, routeConfig: RouteConfig): Promise<void> {
     this.routeConfig = routeConfig;
     this.slug = params.slug;
 
@@ -49,7 +49,7 @@ export class ArticleComponent {
     });
   }
 
-  onToggleFavorited() {
+  public onToggleFavorited(): void {
     this.article.favorited = !this.article.favorited;
     if (this.article.favorited) {
       this.article.favoritesCount++;
@@ -60,13 +60,16 @@ export class ArticleComponent {
     }
   }
 
-  onToggleFollowing() {
+  public onToggleFollowing(): void {
     this.article.author.following = !this.article.author.following;
-    if (this.article.author.following) this.profileService.follow(this.article.author.username);
-    else this.profileService.unfollow(this.article.author.username);
+    if (this.article.author.following) {
+      this.profileService.follow(this.article.author.username);
+    } else {
+      this.profileService.unfollow(this.article.author.username);
+    }
   }
 
-  postComment() {
+  public postComment(): Promise<void> {
     return this.commentService.add(this.slug, this.myComment).then(comment => {
       this.comments.push(comment);
       this.myComment = "";
@@ -74,15 +77,15 @@ export class ArticleComponent {
   }
 
   @computedFrom("article.author.username")
-  get canModify() {
+  public get canModify(): boolean {
     return this.article.author.username === this.sharedState.currentUser.username;
   }
 
-  deleteArticle() {
+  public deleteArticle(): void {
     this.articleService.destroy(this.article.slug).then(() => this.router.navigateToRoute("home"));
   }
 
-  deleteComment(commentId: string) {
+  public deleteComment(commentId: string): void {
     this.commentService.destroy(commentId, this.slug).then(() => {
       this.commentService.getList(this.slug).then(comments => (this.comments = comments));
     });

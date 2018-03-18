@@ -5,9 +5,9 @@ import { SharedState } from "../../shared/state/sharedstate";
 
 @autoinject()
 export class SettingsComponent {
-  userService: UserService;
-  sharedState: SharedState;
-  router: Router;
+  public userService: UserService;
+  public sharedState: SharedState;
+  public router: Router;
 
   constructor(userService: UserService, sharedState: SharedState, router: Router) {
     this.userService = userService;
@@ -15,11 +15,11 @@ export class SettingsComponent {
     this.router = router;
   }
 
-  update() {
+  public update(): void {
     this.userService.update(this.sharedState.currentUser);
   }
 
-  logout() {
+  public logout(): void {
     this.userService.purgeAuth();
     this.router.navigateToRoute("home");
   }

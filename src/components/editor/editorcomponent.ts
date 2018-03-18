@@ -1,25 +1,27 @@
-import { Router, RouteConfig } from "aurelia-router";
-import { ArticleService } from "../../shared/services/articleservice";
-import { autoinject } from "aurelia-dependency-injection";
 import { observable } from "aurelia-binding";
+import { autoinject } from "aurelia-dependency-injection";
+import { RouteConfig, Router } from "aurelia-router";
+import { ArticleService } from "../../shared/services/articleservice";
 
 @autoinject()
 export class EditorComponent {
-  article: any;
-  @observable() tag: string | undefined;
+  public article: any;
 
-  articleService: ArticleService;
-  router: Router;
+  @observable()
+  public tag: string | undefined;
 
-  routeConfig: RouteConfig | undefined;
-  slug: string | undefined;
+  public articleService: ArticleService;
+  public router: Router;
 
-  constructor(as: ArticleService, r: Router) {
-    this.articleService = as;
-    this.router = r;
+  public routeConfig: RouteConfig | undefined;
+  public slug: string | undefined;
+
+  constructor(articleService: ArticleService, router: Router) {
+    this.articleService = articleService;
+    this.router = router;
   }
 
-  activate(params: any, routeConfig: RouteConfig) {
+  public activate(params: any, routeConfig: RouteConfig): Promise<any> {
     this.routeConfig = routeConfig;
     this.slug = params.slug;
 
@@ -35,24 +37,25 @@ export class EditorComponent {
         tagList: []
       };
     }
-    return null;
+
+    return Promise.resolve(null);
   }
 
-  tagChanged(newValue: string | undefined, _oldValue: string | undefined) {
+  public tagChanged(newValue: string | undefined, _oldValue: string | undefined): void {
     if (newValue !== undefined && newValue !== "") {
       this.addTag(newValue);
     }
   }
 
-  addTag(tag: string) {
+  public addTag(tag: string): void {
     this.article.tagList.push(tag);
   }
 
-  removeTag(tag: string) {
+  public removeTag(tag: string): void {
     this.article.tagList.splice(this.article.tagList.indexOf(tag), 1);
   }
 
-  publishArticle() {
+  public publishArticle(): void {
     this.articleService.save(this.article).then(article => {
       this.slug = article.slug;
       this.router.navigateToRoute("article", { slug: this.slug });

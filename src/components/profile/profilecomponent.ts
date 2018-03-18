@@ -1,24 +1,24 @@
-import { autoinject } from "aurelia-dependency-injection";
-import { SharedState } from "../../shared/state/sharedstate";
-import { ProfileService } from "../../shared/services/profileservice";
-import { Router, RouteConfig, RouterConfiguration } from "aurelia-router";
 import { computedFrom } from "aurelia-binding";
+import { autoinject } from "aurelia-dependency-injection";
+import { RouteConfig, Router, RouterConfiguration } from "aurelia-router";
+import { ProfileService } from "../../shared/services/profileservice";
+import { SharedState } from "../../shared/state/sharedstate";
 
 @autoinject()
 export class ProfileComponent {
-  sharedState: SharedState;
-  profileService: ProfileService;
+  public sharedState: SharedState;
+  public profileService: ProfileService;
 
-  router: Router | undefined;
-  username: string = "";
-  profile: any;
+  public router: Router | undefined;
+  public username: string = "";
+  public profile: any;
 
   constructor(sharedState: SharedState, ps: ProfileService) {
     this.sharedState = sharedState;
     this.profileService = ps;
   }
 
-  configureRouter(config: RouterConfiguration, router: Router) {
+  public configureRouter(config: RouterConfiguration, router: Router): void {
     config.map([
       { route: [""], moduleId: "components/profile/profilearticlecomponent", name: "profilearticle", title: "Profile" },
       {
@@ -32,19 +32,23 @@ export class ProfileComponent {
     this.router = router;
   }
 
-  activate(params: any, _routeConfig: RouteConfig) {
+  public activate(params: any, _routeConfig: RouteConfig): Promise<void> {
     this.username = params.name;
+
     return this.profileService.get(this.username).then(profile => (this.profile = profile));
   }
 
   @computedFrom("sharedState.currentUser.username")
-  get isUser() {
+  public get isUser(): boolean {
     return this.profile.username === this.sharedState.currentUser.username;
   }
 
-  onToggleFollowing() {
+  public onToggleFollowing(): void {
     this.profile.following = !this.profile.following;
-    if (this.profile.following) this.profileService.follow(this.profile.username);
-    else this.profileService.unfollow(this.profile.username);
+    if (this.profile.following) {
+      this.profileService.follow(this.profile.username);
+    } else {
+      this.profileService.unfollow(this.profile.username);
+    }
   }
 }

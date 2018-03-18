@@ -1,21 +1,22 @@
 import { autoinject } from "aurelia-dependency-injection";
-import { Router, activationStrategy, RouteConfig } from "aurelia-router";
-import { ValidationControllerFactory, ValidationRules, ValidationController } from "aurelia-validation";
+import { activationStrategy, RouteConfig, Router } from "aurelia-router";
+import { ValidationController, ValidationControllerFactory, ValidationRules } from "aurelia-validation";
 import { UserService } from "../../shared/services/userservice";
 import { SharedState } from "../../shared/state/sharedstate";
 
 @autoinject()
 export class AuthComponent {
-  type = "";
-  username = "";
-  email = "";
-  password = "";
-  errors = null;
+  // tslint:disable-next-line:no-reserved-keywords
+  public type: string = "";
+  public username: string = "";
+  public email: string = "";
+  public password: string = "";
+  public errors: any[] = [];
 
-  userService: UserService;
-  sharedState: SharedState;
-  router: Router;
-  controller: ValidationController;
+  public userService: UserService;
+  public sharedState: SharedState;
+  public router: Router;
+  public controller: ValidationController;
 
   constructor(
     userService: UserService,
@@ -40,15 +41,15 @@ export class AuthComponent {
       .on(this);
   }
 
-  determineActivationStrategy() {
+  public determineActivationStrategy(): string {
     return activationStrategy.replace;
   }
 
-  activate(_params: any, routeConfig: RouteConfig) {
+  public activate(_params: any, routeConfig: RouteConfig): void {
     this.type = routeConfig.name || "";
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     if (this.type === "login") {
       return this.email !== "" && this.password !== "";
     } else {
@@ -56,8 +57,8 @@ export class AuthComponent {
     }
   }
 
-  submit() {
-    this.errors = null;
+  public submit(): void {
+    this.errors = [];
 
     this.controller.validate().then(result => {
       if (result.valid) {

@@ -1,21 +1,21 @@
 import { autoinject } from "aurelia-dependency-injection";
-import { UserService } from "./shared/services/userservice";
 import { PLATFORM } from "aurelia-pal";
 import { Router, RouterConfiguration } from "aurelia-router";
+import { UserService } from "./shared/services/userservice";
 
 @autoinject()
 export class App {
-  message: string;
-  userService: UserService;
+  public message: string;
+  public userService: UserService;
 
-  router: Router | undefined;
+  public router: Router | undefined;
 
   constructor(userService: UserService) {
     this.message = "Hello World!"; // just for unit testing ;)
     this.userService = userService;
   }
 
-  configureRouter(config: RouterConfiguration, router: Router) {
+  public configureRouter(config: RouterConfiguration, router: Router): void {
     config.title = "Conduit";
     config.map([
       {
@@ -65,7 +65,7 @@ export class App {
     this.router = router;
   }
 
-  attached() {
+  public attached(): void {
     this.userService.populate();
   }
 }

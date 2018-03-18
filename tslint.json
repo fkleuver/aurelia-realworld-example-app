@@ -40,7 +40,7 @@
     "mocha-no-side-effect-code": true,
     "no-any": false, // fkleuver: we often need to use external libraries with incomplete/outdated type definitions, and casting "as any" is the only reasonable way to work around type-checking errors
     "no-arg": true,
-    "no-backbone-get-set-outside-model": true,
+    "no-backbone-get-set-outside-model": false, // fkleuver: we get false positives from this
     "no-bitwise": false, // fkleuver: we need bitwise and we know what we're doing..
     "no-conditional-assignment": true,
     "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],

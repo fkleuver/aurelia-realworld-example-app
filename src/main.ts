@@ -1,24 +1,22 @@
 import { Aurelia } from "aurelia-framework";
-import environment from "./environment";
 import { PLATFORM } from "aurelia-pal";
-import Bluebird from "bluebird";
+import environment from "./environment";
 
-Bluebird.config({ warnings: { wForgottenReturn: false } });
+Promise.config({ warnings: { wForgottenReturn: false } });
 
-export function configure(aurelia: Aurelia) {
-  aurelia.use
+export function configure(au: Aurelia): void {
+  au.use
     .standardConfiguration()
     .feature(PLATFORM.moduleName("resources/index"))
-    .feature(PLATFORM.moduleName("shared/index"))
     .plugin(PLATFORM.moduleName("aurelia-validation"));
 
   if (environment.debug) {
-    aurelia.use.developmentLogging();
+    au.use.developmentLogging();
   }
 
   if (environment.testing) {
-    aurelia.use.plugin(PLATFORM.moduleName("aurelia-testing"));
+    au.use.plugin(PLATFORM.moduleName("aurelia-testing"));
   }
 
-  aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName("app")));
+  au.start().then(() => au.setRoot(PLATFORM.moduleName("app")));
 }

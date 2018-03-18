@@ -6,7 +6,7 @@ export class DateValueConverter {
   * into
   * "July 27, 2017"
   */
-  toView(value: string) {
+  public toView(value: string): string {
     return moment(value).format("MMMM D, YYYY");
   }
 }

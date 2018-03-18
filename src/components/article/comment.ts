@@ -1,20 +1,24 @@
-import { bindable, computedFrom } from "aurelia-framework";
+import { computedFrom } from "aurelia-binding";
 import { autoinject } from "aurelia-framework";
+import { bindable } from "aurelia-templating";
 import { SharedState } from "../../shared/state/sharedstate";
 
 @autoinject()
 export class CommentCustomElement {
-  @bindable() comment: any;
-  @bindable() deleteCb: Function | undefined;
+  @bindable()
+  public comment: any;
 
-  sharedState: SharedState;
+  @bindable()
+  public deleteCb: Function | undefined;
+
+  public sharedState: SharedState;
 
   constructor(shSt: SharedState) {
     this.sharedState = shSt;
   }
 
   @computedFrom("comment.author.username")
-  get canModify() {
+  public get canModify(): boolean {
     return this.comment.author.username === this.sharedState.currentUser.username;
   }
 }

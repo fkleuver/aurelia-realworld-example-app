@@ -3,13 +3,13 @@ import { ApiService } from "./apiservice";
 
 @autoinject()
 export class TagService {
-  apiService: ApiService;
+  public apiService: ApiService;
 
   constructor(apiService: ApiService) {
     this.apiService = apiService;
   }
 
-  getList() {
-    return this.apiService.get("/tags").then(data => data.tags);
+  public getList(): Promise<any> {
+    return this.apiService.get<any>("/tags").then(data => data.tags);
   }
 }

@@ -1,9 +1,9 @@
 export class KeysValueConverter {
-  toView(value: Object) {
+  public toView(value: Object): PropertyKey[] {
     if (value) {
       return Reflect.ownKeys(value);
     }
 
-    return undefined;
+    return [];
   }
 }
