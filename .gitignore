@@ -5,7 +5,6 @@ node_modules
 .classpath
 *.launch
 .settings/
-.vscode
 .DS_Store
 Thumbs.db
 scripts
