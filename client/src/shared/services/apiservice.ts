@@ -22,7 +22,7 @@ export class ApiService {
     };
 
     if (this.jwtService.getToken()) {
-      headersConfig.Authorization = `Token ${this.jwtService.getToken()}`;
+      headersConfig.Authorization = `Bearer ${this.jwtService.getToken()}`;
     }
 
     return new Headers(headersConfig);
@@ -35,8 +35,10 @@ export class ApiService {
       headers: this.setHeaders()
     };
 
+    const queryString = qs.stringify(params);
+
     return this.http
-      .fetch(`${config.api_url}${path}?${qs.stringify(params)}`, options)
+      .fetch(`${config.api_url}${path}${queryString.length ? `?${queryString}` : ""}`, options)
       .then(status)
       .catch(parseError);
   }
