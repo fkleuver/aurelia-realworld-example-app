@@ -3,6 +3,7 @@ import { autoinject } from "aurelia-dependency-injection";
 import { RouteConfig, Router, RouterConfiguration } from "aurelia-router";
 import { ProfileService } from "../../shared/services/profileservice";
 import { SharedState } from "../../shared/state/sharedstate";
+import { PLATFORM } from "aurelia-pal";
 
 @autoinject()
 export class ProfileComponent {
@@ -20,10 +21,14 @@ export class ProfileComponent {
 
   public configureRouter(config: RouterConfiguration, router: Router): void {
     config.map([
-      { route: [""], moduleId: "components/profile/profilearticlecomponent", name: "profilearticle", title: "Profile" },
+      { 
+        route: [""],
+        moduleId: PLATFORM.moduleName("components/profile/profilearticlecomponent"),
+        name: "profilearticle",
+        title: "Profile" },
       {
         route: ["favorites"],
-        moduleId: "components/profile/profilefavoritescomponent",
+        moduleId: PLATFORM.moduleName("components/profile/profilefavoritescomponent"),
         name: "profilefavorites",
         title: "Profile"
       }
